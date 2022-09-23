@@ -17,12 +17,21 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.test_tieasnura.model.Mproducts;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RequestQueue queue;
     StringRequest stringRequest;
     TextView textView;
+    Mproducts Mpro;
+    private List<Mproducts>mproductsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +53,28 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        String name, rate, price, desc, image;
+                        Mproducts mproducts;
 //                        // Display the first 500 characters of the response string.
-//                        textView.setText("Response is: " + response.substring(0,500));
-                        Log.e("ER", "bala bla");
+                        try {
+
+                            JSONArray itto = new JSONArray(response);
+
+                            for (int x =0; x<itto.length(); x++){
+                                JSONObject A = itto.getJSONObject(x);
+                                name = A.getString("");
+                                rate = A.getString("");
+                                price = A.getString("");
+                                desc = A.getString("");
+
+                                mproducts = new Mproducts("","","","","");
+                                mproductsList.add(mproducts);
+
+                            }
+
+                        } catch (Exception e){
+
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
