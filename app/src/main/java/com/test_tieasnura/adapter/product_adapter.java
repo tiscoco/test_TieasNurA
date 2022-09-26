@@ -1,5 +1,6 @@
 package com.test_tieasnura.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class product_adapter extends RecyclerView.Adapter<product_adapter.MyView
     private List<Mproducts> mproductsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView name, desc, rate;
+        public TextView name, desc, rate,price;
         ImageView image;
 
         public MyViewHolder(View view){
@@ -30,6 +31,7 @@ public class product_adapter extends RecyclerView.Adapter<product_adapter.MyView
             desc = view.findViewById(R.id.prod_desc);
             rate = view.findViewById(R.id.prod_rate);
             image = view.findViewById(R.id.prod_image);
+            price = view.findViewById(R.id.prod_price);
         }
     }
 
@@ -51,14 +53,15 @@ public class product_adapter extends RecyclerView.Adapter<product_adapter.MyView
         Mproducts product = mproductsList.get(position);
         holder.name.setText(product.getProduct_name());
         holder.desc.setText(product.getProduct_desc());
-        holder.rate.setText(product.getProduct_name());
-
+        holder.rate.setText(product.getProduct_rate());
+        holder.price.setText(product.getProduct_price());
+        Log.e("ini",product.getProduct_image());
         Picasso.get().load(product.getProduct_image()).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mproductsList.size();
     }
 
 
