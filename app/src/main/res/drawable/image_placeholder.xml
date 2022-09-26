@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<solid android:color="@color/cardview_dark_background" />
+<solid android:color="#fff" />
     <corners android:bottomLeftRadius="10px"
              android:topLeftRadius="10px"/>
 </shape>

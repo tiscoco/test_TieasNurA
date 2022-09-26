@@ -6,18 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.test_tieasnura.model.Mproducts;
@@ -31,7 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    RequestQueue queue;
+
     StringRequest stringRequest;
     product_adapter adapter;
     RecyclerView recyclerView;
@@ -62,12 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 response -> {
                     String name, rate, price, desc, image;
 
-//                        // Display the first 500 characters of the response string.
                     try {
 
-                        JSONArray itto = new JSONArray(response);
-                        for (int x =0; x<itto.length(); x++){
-                            JSONObject A = itto.getJSONObject(x);
+                        JSONArray prodlist = new JSONArray(response);
+                        for (int x =0; x<prodlist.length(); x++){
+                            JSONObject A = prodlist.getJSONObject(x);
 
                             JSONObject rating = A.getJSONObject("rating");
 
@@ -76,19 +70,18 @@ public class MainActivity extends AppCompatActivity {
                             desc = A.getString("description");
                             image = A.getString("image");
                             rate = rating.getString("rate");
-//                            Log.e("diluc mana",image+name+price+desc+rate);
+
 
                             Mproducts Mpro = new Mproducts(name,price,desc,rate,image);
                             mproductsList.add(Mpro);
 
                         }
                         adapter.notifyDataSetChanged();
-                        ((TextView)findViewById(R.id.blalba)).setText("awawkfawjfe");
                     } catch (Exception e){
                         e.printStackTrace();
                     }
                 }, error -> {
-    //                textView.setText("That didn't work!");
+
                     if (!(error instanceof NetworkError | error instanceof TimeoutError)) {
                         NetworkResponse networkResponse = error.networkResponse;
                         Toast.makeText(getApplicationContext(), "Terjadi Kesalahan pada server, siahkan coba beberapa menit lagi. ", Toast.LENGTH_LONG).show();
